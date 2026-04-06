@@ -1,0 +1,10 @@
+{
+    "files.autoSave": "onFocusChange",
+    "git.confirmSync": false,
+    "CRS.ObjectNamePrefix": "LPMS ",    
+    "CRS.FileNamePattern":"<ObjectTypeShort><ObjectId>.<ObjectNameShort>.al",        
+    "CRS.FileNamePatternExtensions":"<ObjectTypeShort><BaseId>-Ext<ObjectId>.<ObjectNameShort>.al",
+    "CRS.RemovePrefixFromFilename": true,
+    "CRS.OnSaveAlFileAction": "Rename",
+    "al.enableCodeAnalysis": true,
+}
