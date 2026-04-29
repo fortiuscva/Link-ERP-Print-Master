@@ -3,7 +3,7 @@ page 64700 "LPMS Step Master List"
     PageType = List;
     SourceTable = "LPMS Step Master";
     ApplicationArea = All;
-    Caption = 'Setp Master List';
+    Caption = 'Step Master List';
     UsageCategory = Lists;
 
     layout
@@ -24,6 +24,15 @@ page 64700 "LPMS Step Master List"
                 {
                     ToolTip = 'Specifies the value of the Image field.';
                 }
+            }
+        }
+        area(factboxes)
+        {
+            part("LPMS Step Master Image"; "LPMS Step Image FactBox")
+            {
+                ApplicationArea = All;
+                Caption = 'Step Master Image';
+                SubPageLink = "Step No." = field("Step No.");
             }
         }
     }
