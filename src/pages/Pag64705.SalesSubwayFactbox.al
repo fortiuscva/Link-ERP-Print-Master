@@ -20,7 +20,13 @@ page 64705 "LPMS Sales Subway Factbox"
                 {
                     Caption = 'Status';
                     StyleExpr = StepStyle;
-                    ToolTip = 'Step status';
+                }
+                field(Image; Rec.Image)
+                {
+                    Caption = 'Image';
+                    Width = 12;
+                    ShowCaption = false;
+
                 }
                 field(StatusIconField; StatusIcon)
                 {
@@ -38,31 +44,26 @@ page 64705 "LPMS Sales Subway Factbox"
 
     trigger OnAfterGetRecord()
     begin
+        Rec.CalcFields(Image);
         case Rec.Status of
             Rec.Status::Completed:
-                StepStyle := 'Favorable';      // Green
+                begin
+                    StepStyle := 'Favorable';
+                    StepProgress := 100;
+                    StatusIcon := '✔';
+                end;   // Green
             Rec.Status::"In Progress":
-                StepStyle := 'Attention';   // Yellow
+                begin
+                    StepStyle := 'Attention';
+                    StepProgress := 50;
+                    StatusIcon := '⏳';
+                end;   // Yellow
             Rec.Status::Pending:
-                StepStyle := 'Standard';         // Grey
-        end;
-
-        case Rec.Status of
-            Rec.Status::Completed:
-                StepProgress := 100;
-            Rec.Status::"In Progress":
-                StepProgress := 50;
-            Rec.Status::Pending:
-                StepProgress := 0;
-        end;
-
-        case Rec.Status of
-            Rec.Status::Completed:
-                StatusIcon := '✔';
-            Rec.Status::"In Progress":
-                StatusIcon := '⏳';
-            Rec.Status::Pending:
-                StatusIcon := '⭕';
+                begin
+                    StepStyle := 'Standard';
+                    StepProgress := 0;
+                    StatusIcon := '⭕';
+                end;         // Grey
         end;
 
         ProgressBarVisual := GetProgressBar(StepProgress, 10);
@@ -87,9 +88,27 @@ page 64705 "LPMS Sales Subway Factbox"
         exit(Bar);
     end;
 
+    trigger OnAfterGetCurrRecord()
+    begin
+        LoadStepImage();
+    end;
+
     var
         StatusIcon: Text[5];          // For ✔ ⏳ ⭕ icons
         StepStyle: Text;              // Color style for icon
         ProgressBarVisual: Text[25];  // Text-based progress bar
         StepProgress: Integer;        // 0-100
+        StepMaster: Record "LPMS Step Master";
+    //StepImage: MediaSet;
+
+    local procedure LoadStepImage()
+    begin
+        //Clear(StepImage);
+
+        if Rec."Step No." = '' then
+            exit;
+
+        if StepMaster.Get(Rec."Step No.") then;
+
+    end;
 }

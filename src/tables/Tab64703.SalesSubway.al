@@ -10,11 +10,17 @@ table 64703 "LPMS Sales Subway"
         field(2; "Sales Line No."; Integer)
         { }
         field(3; "Step No."; Code[20])
-        { }
+        {
+            Caption = 'Step No.';
+            TableRelation = "LPMS Step Master";
+        }
         field(4; Description; Text[100])
         { }
         field(5; Image; MediaSet)
-        { }
+        {
+            FieldClass = FlowField;
+            CalcFormula = lookup("LPMS Step Master".Image WHERE("Step No." = FIELD("Step No.")));
+        }
         field(6; Status; Enum "LPMS Sales Subway Status")
         { }
     }
