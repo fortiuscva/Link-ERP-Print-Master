@@ -18,8 +18,7 @@ table 64703 "LPMS Sales Subway"
         { }
         field(5; Image; MediaSet)
         {
-            FieldClass = FlowField;
-            CalcFormula = lookup("LPMS Step Master".Image WHERE("Step No." = FIELD("Step No.")));
+            Caption = 'Image';
         }
         field(6; Status; Enum "LPMS Sales Subway Status")
         { }
