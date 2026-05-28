@@ -31,6 +31,7 @@ codeunit 64700 "LPMS Subway Management"
                 SalesSubway."Step No." := Step."Step No.";
                 SalesSubway.Description := Step.Description;
                 SalesSubway.Status := SalesSubway.Status::Pending;
+                SalesSubway."Image" := Step.Image;
                 SalesSubway.Insert();
             until SubwayLine.Next() = 0;
     end;
